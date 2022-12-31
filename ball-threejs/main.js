@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import './styles.css';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+
 function init() {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   let scene = new THREE.Scene();
@@ -13,7 +15,6 @@ function init() {
     height: window.innerHeight,
   }
   // create Sphere
-
   let geometry = new THREE.SphereGeometry(3,64,64);
   let material = new THREE.MeshStandardMaterial({
     color: '#fff069',
@@ -26,18 +27,34 @@ function init() {
   let lights= new THREE.PointLight(0xffffff, 1, 100)
   lights.position.set(0,10,10)
   scene.add(lights)
-
+ 
   // render sphere
   let canvas = document.querySelector(".webgl")
   let renderer = new THREE.WebGLRenderer({canvas});
+  renderer.setPixelRatio(2);
   renderer.setSize(sizes.width, sizes.height);
   // add the output of the render function to the HTML
   document.body.appendChild(renderer.domElement);
+  
+   // controls
+  let controls = new OrbitControls(camera,canvas);
+  controls.enableDamping=true
+  // prevents zoom
+  controls.enablePan=false
+  controls.enableZoom=false
+  // Resize
+  window.addEventListener("resize",()=>{
+    sizes.width=window.innerWidth;
+    sizes.height=window.innerHeight;
 
+    camera.aspect=sizes.width/sizes.height;
+    renderer.setSize(sizes.width,sizes.height);
+  })
   // function for re-rendering/animating the scene
   function tick() {
-    requestAnimationFrame(tick);
+    controls.update()
     renderer.render(scene, camera, canvas);
+    requestAnimationFrame(tick);
   }
   tick();
 }
