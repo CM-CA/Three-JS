@@ -42,6 +42,9 @@ function init() {
   // prevents zoom
   controls.enablePan=false
   controls.enableZoom=false
+  // rotation
+  controls.autoRotate=true
+  controls.autoRotateSpeed=5
   // Resize
   window.addEventListener("resize",()=>{
     sizes.width=window.innerWidth;
