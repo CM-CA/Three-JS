@@ -6,7 +6,9 @@ Project to learn how to use ThreeJs library.
 ## Install
 
 This project use (higly recommended) pnpm package manager.
-[![pnpm](https://pnpm.io/img/pnpm-no-name-with-frame.svg)](https://pnpm.io/)
+
+[![pnpm](https://pnpm.io/img/pnpm-no-name-with-frame.svg)](https://pnpm.io/) | PNPM  |
+|-|-|
 
 ### NPM
 
