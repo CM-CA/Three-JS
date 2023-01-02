@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import "./style.css";
+
 function init() {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   let scene = new THREE.Scene();
@@ -26,20 +27,19 @@ function init() {
 
   // Creating Sphere (our planet)
   // Objects
-  const geometry_one = new THREE.SphereGeometry(1, 36, 16);
-  const geometry_two = new THREE.SphereGeometry(0.99, 36, 16);
-  const geometry_three = new THREE.SphereGeometry(1, 36, 16);
+  const geometry_one = new THREE.SphereGeometry(2, 40, 36);
 
   // Materials
-  var texture = new THREE.TextureLoader().load(
-    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/141228/earthmap1k.jpg"
+  let texture = new THREE.TextureLoader().load("textures/2k_earth_daymap.jpg");
+  let cloud_texture = new THREE.TextureLoader().load(
+    "textures/2k_earth_clouds.jpg"
   );
-
   //set the texture as map parameter of the material
-  var material = new THREE.MeshBasicMaterial({ map: texture });
-  var cube = new THREE.Mesh(geometry_one, material);
+  let material = new THREE.MeshBasicMaterial({ map: texture });
+  let cloud_material = new THREE.MeshPhysicalMaterial({ map: cloud_texture });
+  let earth = new THREE.Mesh(geometry_one, material);
 
-  scene.add(cube);
+  scene.add(earth);
 
   let background = new THREE.TextureLoader().load("textures/17494.jpg");
   scene.background = background;
@@ -52,8 +52,10 @@ function init() {
   // var clock = new THREE.Clock();
   // function for re-rendering/animating the scene
   function tick() {
+    earth.rotation.y += 0.01;
     requestAnimationFrame(tick);
     renderer.render(scene, camera, canvas);
+    renderer.setPixelRatio(5);
   }
   tick();
 }
